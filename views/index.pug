@@ -12,10 +12,10 @@ block content
         th Genre 
         th Year
     tbody 
-      //- each book in books 
-      //-   tr 
-      //-     td
-      //-       a(href=`/book/${book.id}`) #{book.title}
-      //-     td= book.author 
-      //-     td= book.genre 
-      //-     td= book.year        
+      each book in books 
+        tr 
+          td
+            a(href=`/book/${book.id}`) #{book.title}
+          td= book.author 
+          td= book.genre 
+          td= book.year        

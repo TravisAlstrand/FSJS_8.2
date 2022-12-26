@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 // IMPORT BOOK MODEL
-const { Book } = require('../models/book');
+const { Book } = require('../models');
 
 
 const asyncHandler = (cb) => {
@@ -23,8 +23,7 @@ router.get('/', asyncHandler(async (req, res) => {
 // GET HOME PAGE - ALL BOOKS
 router.get('/books', asyncHandler(async (req, res) => {
   const allBooks = await Book.findAll();
-  console.log(allBooks)
-  // res.render('index');
+  res.render('index', {books: allBooks});
 }));
 
 // GET CREATE NEW BOOK FORM
