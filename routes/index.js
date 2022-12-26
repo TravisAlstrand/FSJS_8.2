@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 // IMPORT BOOK MODEL
-const books = require('../models/book').Book;
+const { Book } = require('../models/book');
 
 
 const asyncHandler = (cb) => {
@@ -15,10 +15,16 @@ const asyncHandler = (cb) => {
   };
 };
 
-// GET HOME PAGE - ALL BOOKS
+// HOME PAGE REDIRECT
 router.get('/', asyncHandler(async (req, res) => {
-  const allBooks = await books.findAll({});
-  console.log(allBooks);
+  res.redirect('/books');
+}))
+
+// GET HOME PAGE - ALL BOOKS
+router.get('/books', asyncHandler(async (req, res) => {
+  const allBooks = await Book.findAll();
+  console.log(allBooks)
+  // res.render('index');
 }));
 
 // GET CREATE NEW BOOK FORM

@@ -21,9 +21,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// USE ROUTER
-app.use('/books/', indexRouter);
-
 // CONNECT TO DB / LOG MESSAGE
 sequelize.authenticate()
   .then(() => {
@@ -41,6 +38,9 @@ sequelize.sync()
   .catch(err => {
     console.error('Unable to sync models!', err);
   });
+
+// USE ROUTER
+app.use('/', indexRouter);
 
 // CATCH 404 AND FORWARD TO GLOBAL HANDLER
 app.use((req, res, next) => {
