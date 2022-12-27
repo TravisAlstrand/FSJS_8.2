@@ -10,9 +10,9 @@ a {
   transition: 0.4s;
 }
 
-  a:hover {
-    color: black;
-  }
+a:hover {
+  color: black;
+}
 
 a.button, input[type=submit] {
   color: white;
@@ -94,4 +94,32 @@ input[type=text] {
 
 .error {
   color: rgb(236, 15, 15);
+}
+
+/* CUSTOM STYLES */
+
+.header-div {
+  display: flex;
+  justify-content: space-between;
+  max-width: 707px;
+  margin-bottom: 1rem;
+}
+
+.header-div p {
+  justify-self: flex-start;
+  width: 50%;
+}
+
+.search-form {
+  display: flex;
+  width: 50%;
+}
+
+#search {
+  width: 100%;
+  margin: 0;
+}
+
+.header-div input[type='submit'] {
+  margin: 0;
 }

@@ -96,4 +96,9 @@ router.post('/books/:id/delete', asyncHandler(async (req, res, next) => {
   };
 }));
 
+// SEARCH RESULTS
+router.get('/books/search', asyncHandler(async(req, res) => {
+  
+}));
+
 module.exports = router;

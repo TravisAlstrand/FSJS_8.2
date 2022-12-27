@@ -2,8 +2,15 @@ extends layout
 
 block content
   h1 Books
-  p
-    a(class='button', href='/books/new') Create New Book
+  .header-div 
+    p
+      a(class='button', href='/books/new') Create New Book
+    if(search)
+      p 
+        a(class='button', href='/books') Clear Search
+    form(action='/books/search' class='search-form') 
+      input(id='search', type='search', name='query', placeholder='Search...')
+      input(class='button search-btn', type='submit', value='Search')
   table 
     thead 
       tr 
