@@ -37,13 +37,39 @@ router.post('/new', asyncHandler(async (req, res) => {
 }));
 
 // GET BOOK DETAIL
-router.get('/:id', asyncHandler(async (req, res) => {
-
+router.get('/books/:id', asyncHandler(async (req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  if (book) {
+    res.render('update-book', { book });
+  } else {
+    const err = new Error('That book does not exist');
+    err.status = 404;
+    next(err);
+  };
 }));
 
 // POST BOOK UPDATE
-router.post('/:id', asyncHandler(async (req, res) => {
-
+router.post('/books/:id', asyncHandler(async (req, res) => {
+  let book;
+  try {
+    book = await Book.findByPk(req.params.id);
+    if (book) {
+      await book.update(req.body);
+      res.redirect('/');
+    } else {
+      const err = new Error('That book does not exist');
+      err.status = 404;
+      next(err);
+    };
+  } catch (err) {
+    if (err.name === 'SequelizeValidationError') {
+      book = await Book.build(req.body);
+      book.id = req.params.id;
+      res.render('update-book', { book, errors: err.errors });
+    } else {
+      throw err;
+    }
+  }
 }));
 
 // POST DELETE BOOK
