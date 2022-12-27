@@ -27,13 +27,24 @@ router.get('/books', asyncHandler(async (req, res) => {
 }));
 
 // GET CREATE NEW BOOK FORM
-router.get('/new', asyncHandler(async (req, res) => {
-
+router.get('/books/new', asyncHandler(async (req, res) => {
+  res.render('new-book');
 }));
 
 // POST NEW BOOK
-router.post('/new', asyncHandler(async (req, res) => {
-
+router.post('/books/new', asyncHandler(async (req, res) => {
+  let book;
+  try {
+    book = await Book.create(req.body);
+    res.redirect('/');
+  } catch (err) {
+    if (err.name === 'SequelizeValidationError') {
+      book = await Book.build(req.body);
+      res.render('new-book', { book, errors: err.errors });
+    } else {
+      throw err;
+    }
+  };
 }));
 
 // GET BOOK DETAIL
@@ -73,7 +84,7 @@ router.post('/books/:id', asyncHandler(async (req, res) => {
 }));
 
 // POST DELETE BOOK
-router.post('/:id/delete', asyncHandler(async (req, res) => {
+router.post('/books/:id/delete', asyncHandler(async (req, res) => {
 
 }));
 

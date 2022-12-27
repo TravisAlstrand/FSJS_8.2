@@ -1,0 +1,37 @@
+extends layout 
+
+block content 
+  h1 New Book 
+  if errors 
+    h2(class='error') OOPS! 
+    each error in errors 
+      p(class='error')= error.message
+  form(action='/books/new', method='post') 
+    p 
+      label(for='title') Title 
+      if book
+        input(type='text', name='title', id='title', value=book.title)
+      else 
+        input(type='text', name='title', id='title')
+    p 
+      label(for='author') Author
+      if book
+        input(type='text', name='author', id='author', value=book.author) 
+      else
+        input(type='text', name='author', id='author')
+    p 
+      label(for='genre') Genre 
+      if book 
+        input(type='text', name='genre', id='genre', value=book.genre)
+      else
+        input(type='text', name='genre', id='genre')
+    p 
+      label(for='year') Year 
+      if book 
+        input(type='text', name='year', id='year', value=book.year)
+      else
+        input(type='text', name='year', id='year')
+    p 
+      input(type='submit', vale='Create New Book')
+    p 
+      a(class='button', href='/') Cancel
