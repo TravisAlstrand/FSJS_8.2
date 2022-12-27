@@ -60,7 +60,7 @@ router.get('/books/:id', asyncHandler(async (req, res, next) => {
 }));
 
 // POST BOOK UPDATE
-router.post('/books/:id', asyncHandler(async (req, res) => {
+router.post('/books/:id', asyncHandler(async (req, res, next) => {
   let book;
   try {
     book = await Book.findByPk(req.params.id);
@@ -84,8 +84,16 @@ router.post('/books/:id', asyncHandler(async (req, res) => {
 }));
 
 // POST DELETE BOOK
-router.post('/books/:id/delete', asyncHandler(async (req, res) => {
-
+router.post('/books/:id/delete', asyncHandler(async (req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  if (book) {
+    await book.destroy();
+    res.redirect('/');
+  } else {
+    const err = new Error('That book does not exist');
+    err.status = 404;
+    next(err);
+  };
 }));
 
 module.exports = router;
