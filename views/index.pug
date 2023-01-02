@@ -5,12 +5,14 @@ block content
   .header-div 
     p
       a(class='button', href='/books/new') Create New Book
-    if(search)
+    if(query)
       p 
         a(class='button', href='/books') Clear Search
     form(action='/books/search' class='search-form') 
-      input(id='search', type='search', name='query', placeholder='Search...')
+      input(id='search', type='search', name='searchTerm', placeholder='Search...')
       input(class='button search-btn', type='submit', value='Search')
+  if query 
+    h2= `Results for '${query}'`
   table 
     thead 
       tr 
@@ -25,4 +27,11 @@ block content
             a(href=`/books/${book.id}`) #{book.title}
           td= book.author 
           td= book.genre 
-          td= book.year        
+          td= book.year
+  br
+  
+  - for (i = 0; i < totalPages; i++)
+      if (query)
+        a(class='button page-btn', href='/books/search?searchTerm=' + query + '&page=' + (i) + '&size=10')= i+1
+      else
+        a(class='button page-btn', href='/books/?page=' + (i) + '&size=10')= i+1  
